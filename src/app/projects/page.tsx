@@ -4,6 +4,12 @@ import ProjectCard from '@/components/ui/ProjectCard';
 
 const projects = [
   {
+    title: 'EmotionMovie',
+    description: 'An innovative web application that allows users to explore and discover movies through emotional connections rather than traditional ratings. Features emotion-based tagging, collaborative emotional intelligence, and personalized recommendations.',
+    link: 'https://emotionmovies.com',
+    technologies: ['Next.js', 'TypeScript', 'Firebase', 'Prisma', 'REST API', 'TMDB API'],
+  },
+  {
     title: 'AI Resume Match',
     description: 'An AI-powered resume generation platform with PDF export capabilities, built with Next.js and OpenAI integration.',
     link: 'https://ai-resume-match-omega.vercel.app/',
