@@ -150,10 +150,7 @@ export default function AboutPage() {
               Personal Interests
             </h2>
             <p className="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-300 transition-colors duration-300">
-              When I&apos;m not coding, I enjoy exploring new technologies,
-              contributing to open-source projects, and staying up-to-date with
-              the latest trends in web development. I&apos;m also passionate about
-              mentoring and helping others learn programming.
+              When I&apos;m not coding, I enjoy playing soccer and spending time at the gym to stay active and maintain a healthy lifestyle. I also like exploring new technologies and staying up-to-date with the latest trends in web development. I&apos;m passionate about mentoring and helping others learn programming.
             </p>
           </div>
         </div>
