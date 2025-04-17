@@ -51,7 +51,6 @@ export default function CursorBackground() {
       mouseY += (targetY - mouseY) * speed;
 
       circles.forEach((circle, index) => {
-        const delay = index * 0.1;
         const offsetX = Math.sin(Date.now() * 0.001 + index) * 20;
         const offsetY = Math.cos(Date.now() * 0.001 + index) * 20;
         
