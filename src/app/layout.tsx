@@ -4,10 +4,12 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Cursor from "@/components/ui/Cursor";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://blaisemuhune.com"),
   title: "Blaise Muhune | Full Stack Developer & Web Solutions Expert",
   description: "Professional full stack developer specializing in modern web applications. Expert in Next.js, React, TypeScript, and AI integration. Available for freelance projects and consulting.",
   keywords: "full stack developer, web developer, next.js developer, react developer, typescript developer, AI integration, web solutions, freelance developer, software engineer",
@@ -48,12 +50,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Cursor />
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Cursor />
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

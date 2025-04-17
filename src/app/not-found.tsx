@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { Home, ArrowLeft, Search, Coffee } from 'lucide-react';
+import { useState } from 'react';
 
 export default function NotFound() {
   // Random funny 404 messages
@@ -14,6 +17,12 @@ export default function NotFound() {
   
   // Get a random message
   const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleSearchClick = () => {
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
+  };
 
   return (
     <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
@@ -45,8 +54,13 @@ export default function NotFound() {
                   type="text" 
                   className="pl-10 pr-4 py-2 w-72 rounded-full border border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80"
                   placeholder="Search for the missing page..."
-                  onClick={() => alert("Just kidding! Back to safety we go!")}
+                  onClick={handleSearchClick}
                 />
+                {showAlert && (
+                  <div className="absolute top-12 left-0 right-0 bg-blue-500 text-white py-2 px-4 rounded-lg">
+                    Just kidding! Back to safety we go!
+                  </div>
+                )}
               </div>
             </div>
           </div>
