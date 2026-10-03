@@ -9,14 +9,26 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        heading: ['var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-archivo)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'monospace'],
+      },
+      colors: {
+        ink: 'var(--color-foreground)',
+        surface: 'var(--color-background)',
+        card: 'var(--color-card)',
+        muted: 'var(--color-muted)',
+        'muted-foreground': 'var(--color-muted-foreground)',
+        border: 'var(--color-border)',
+        accent: 'var(--color-accent)',
+        'on-accent': 'var(--color-on-accent)',
+        'on-primary': 'var(--color-on-primary)',
+        ring: 'var(--color-ring)',
       },
     },
   },
   plugins: [],
 };
 
-export default config; 
+export default config;

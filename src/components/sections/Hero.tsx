@@ -1,84 +1,90 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react';
+import { ArrowUpRight, Github, Linkedin } from 'lucide-react';
+import HeroPortrait from '@/components/ui/HeroPortrait';
+
+const socialLinks = [
+  {
+    href: 'https://github.com/Blaise-Muhune',
+    label: 'GitHub',
+    icon: Github,
+  },
+  {
+    href: 'https://www.linkedin.com/in/blaise-muhune-bbb81a242/',
+    label: 'LinkedIn',
+    icon: Linkedin,
+  },
+  {
+    href: 'https://x.com/blaisemuhune_',
+    label: 'X',
+    icon: null,
+  },
+];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-                Hi, I&apos;m Blaise Muhune
-              </h1>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-600 dark:text-gray-300">
-                Full Stack Developer
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-lg">
-                I build modern web applications with JavaScript, TypeScript, React, and Next.js.
-                Passionate about creating efficient, scalable, and user-friendly solutions.
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/projects"
-                className="group inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-              >
-                View My Work
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+    <section className="section-pad border-b-2 border-border">
+      <div className="container-page">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="text-accent">~/</span>blaisemuhune
+              <span className="mx-2 text-border" aria-hidden="true">
+                ·
+              </span>
+              full stack developer
+            </p>
+            <h1 className="heading-display mt-4">
+              I build web products that feel fast, clear, and intentional.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              Hi, I&apos;m Blaise Muhune. I ship modern applications with
+              Next.js, React, and TypeScript — from MVPs to production systems
+              with AI integration and solid UX.
+            </p>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/projects" className="btn-primary">
+                View selected work
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <Link
-                href="/about"
-                className="group inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 text-base font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-              >
-                About Me
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Link href="/#contact" className="btn-secondary">
+                Get in touch
               </Link>
             </div>
 
-            <div className="flex items-center gap-4 pt-4">
-              <a
-                href="https://github.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                <Github className="w-6 h-6" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/blaise-muhune-bbb81a242/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a
-                href="https://x.com/blaisemuhune_"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                <Twitter className="w-6 h-6" />
-              </a>
-            </div>
+            <ul className="mt-10 flex flex-wrap items-center gap-4">
+              {socialLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex cursor-pointer items-center gap-2 border-2 border-border px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:border-ink hover:text-ink"
+                  >
+                    {link.icon ? (
+                      <link.icon className="h-4 w-4" aria-hidden="true" />
+                    ) : (
+                      <span className="font-heading text-sm font-semibold">
+                        X
+                      </span>
+                    )}
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="relative h-[500px] w-full group">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl transform rotate-3 group-hover:rotate-0 transition-transform duration-500" />
-            <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 group-hover:rotate-0 transition-transform duration-500">
-              <Image
-                src="/profile.jpg"
-                alt="Blaise Muhune"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                priority
-              />
-            </div>
+
+          <div className="relative lg:justify-self-end">
+            <p className="label-mono mb-3 hidden lg:block">Fig. 01 — Portrait</p>
+            <div className="absolute -right-3 -top-3 h-full w-full border-2 border-ink bg-accent lg:top-6" />
+            <HeroPortrait />
+            <p className="mt-4 max-w-md font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              Remote · Available worldwide
+            </p>
           </div>
         </div>
       </div>
     </section>
   );
-} 
+}

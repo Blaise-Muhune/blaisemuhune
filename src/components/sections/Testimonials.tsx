@@ -1,68 +1,77 @@
-import { Star } from 'lucide-react';
+import Link from 'next/link';
+import SectionHeading from '@/components/ui/SectionHeading';
 
 const testimonials = [
   {
     name: 'Amina Okafor',
     role: 'President, Andrews University African Club',
-    content: 'Blaise created a beautiful and functional website for our student club. The site helped us increase membership by 40% and made event organization much easier. His attention to detail and quick response to our needs was impressive.',
-    rating: 5,
+    projectLabel: 'Client website · student organization',
+    content:
+      'Blaise created a beautiful and functional website for our student club. Membership grew and event organization became much easier. He was responsive and detail-oriented throughout.',
   },
   {
     name: 'Pastor Michael Thompson',
     role: 'Senior Pastor, New Life Community Church',
-    content: 'Our church needed a modern website to connect with our community. Blaise delivered a professional site that perfectly represents our values and makes it easy for visitors to find information about our services and events.',
-    rating: 5,
+    projectLabel: 'Client website · community organization',
+    content:
+      'We needed a modern site that reflects our community. Blaise delivered a professional experience that makes services and events easy to find.',
   },
   {
     name: 'Alex Rodriguez',
-    role: 'Social Media Influencer',
-    content: 'As a content creator, I needed a portfolio that showcases my work professionally. Blaise built a stunning website that highlights my content and makes it easy for brands to contact me. The site has helped me secure multiple partnerships.',
-    rating: 5,
+    role: 'Content creator',
+    projectLabel: 'Client website · creator portfolio',
+    content:
+      'I needed a portfolio that brands could trust. The site Blaise built helped me land partnerships and keeps my work easy to browse.',
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 sm:text-4xl">
-            Client Testimonials
-          </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            What my clients say about working with me
-          </p>
-        </div>
+    <section className="section-pad border-b-2 border-border">
+      <div className="container-page">
+        <SectionHeading
+          label="Testimonials"
+          title="Client work"
+          description="Organizations and creators I've built sites for — alongside my own products on the projects page."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div
+            <blockquote
               key={testimonial.name}
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300"
+              className="card-surface flex h-full flex-col p-6"
             >
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 text-yellow-400 fill-current"
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
-                &ldquo;{testimonial.content}&rdquo;
+              <p className="font-mono text-[10px] uppercase tracking-wider text-accent">
+                {testimonial.projectLabel}
               </p>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-white">
-                  {testimonial.name}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {testimonial.role}
-                </p>
-              </div>
-            </div>
+              <p className="font-heading mt-4 text-4xl leading-none text-ink/20">
+                &ldquo;
+              </p>
+              <p className="mt-2 flex-1 text-base leading-relaxed text-muted-foreground">
+                {testimonial.content}
+              </p>
+              <footer className="mt-6 border-t-2 border-border pt-4">
+                <cite className="not-italic">
+                  <p className="font-heading font-semibold text-ink">
+                    {testimonial.name}
+                  </p>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                    {testimonial.role}
+                  </p>
+                </cite>
+              </footer>
+            </blockquote>
           ))}
         </div>
+
+        <p className="mt-8 text-sm text-muted-foreground">
+          For shipped products and repos, see{' '}
+          <Link href="/projects" className="link-accent">
+            all projects
+          </Link>
+          .
+        </p>
       </div>
     </section>
   );
-} 
+}

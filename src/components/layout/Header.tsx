@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import StatusStrip from '@/components/layout/StatusStrip';
 
 const navItems = [
   { name: 'Home', href: '/' },
@@ -17,96 +18,115 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
+  const isDark = resolvedTheme === 'dark';
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
+    <header className="fixed top-0.5 left-0 right-0 z-50 border-b-2 border-border bg-surface/95 backdrop-blur-sm">
+      <div className="container-page">
+        <div className="flex h-16 items-center justify-between md:h-[4.5rem]">
           <Link
             href="/"
-            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 hover:from-blue-500 hover:to-purple-500 dark:hover:from-blue-300 dark:hover:to-purple-300 transition-all duration-300"
+            className="font-heading text-lg font-semibold tracking-tight text-ink transition-opacity hover:opacity-70 md:text-xl"
           >
             Blaise Muhune
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-10">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
-                  pathname === item.href
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300'
-                }`}
-              >
-                {item.name}
-                {pathname === item.href && (
-                  <span className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-md -z-10" />
-                )}
-              </Link>
-            ))}
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`cursor-pointer px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200 ${
+                    active
+                      ? 'bg-ink text-on-primary'
+                      : 'text-muted-foreground hover:text-ink'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Theme Toggle and Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-              className="p-2.5 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700/80 transition-all duration-300 hover:scale-105"
-              aria-label="Toggle theme"
-            >
-              {mounted && (
-                resolvedTheme === 'dark' ? (
-                  <Sun className="w-6 h-6 text-yellow-500" />
-                ) : (
-                  <Moon className="w-6 h-6 text-gray-600" />
-                )
-              )}
-            </button>
+          <div className="flex items-center gap-2">
+            {mounted ? (
+              <button
+                type="button"
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className="cursor-pointer border-2 border-border px-2 py-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:border-ink sm:px-3 sm:text-xs"
+                aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
+              >
+                <span className={isDark ? 'text-muted-foreground' : 'text-ink'}>
+                  Light
+                </span>
+                <span className="mx-1 text-border" aria-hidden="true">
+                  /
+                </span>
+                <span className={isDark ? 'text-ink' : 'text-muted-foreground'}>
+                  Dark
+                </span>
+              </button>
+            ) : (
+              <div
+                className="h-9 w-[4.5rem] border-2 border-border sm:w-24"
+                aria-hidden="true"
+              />
+            )}
 
-            {/* Mobile menu button */}
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2.5 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700/80 transition-all duration-300 hover:scale-105"
+              className="cursor-pointer border-2 border-border p-2.5 text-ink transition-colors duration-200 hover:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden"
+              aria-expanded={isOpen}
               aria-label="Toggle menu"
             >
               {isOpen ? (
-                <X className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                <X className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <Menu className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      <StatusStrip />
+
       {isOpen && (
-        <div className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
-          <div className="px-4 py-4 space-y-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                  pathname === item.href
-                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50/50 dark:hover:bg-gray-800/50'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+        <nav
+          className="border-t-2 border-border bg-surface md:hidden"
+          aria-label="Mobile"
+        >
+          <div className="container-page flex flex-col gap-1 py-3">
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`cursor-pointer px-3 py-3 font-mono text-xs uppercase tracking-widest ${
+                    active
+                      ? 'bg-ink text-on-primary'
+                      : 'text-muted-foreground hover:text-ink'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );
-} 
+}
